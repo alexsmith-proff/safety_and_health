@@ -3,19 +3,19 @@ import express from "express"
 import cors from 'cors'
 import mongoose from 'mongoose'
 import { userRouter } from './routes/auth.route.js'
+import { testRouter } from './routes/test.route.js'
+import { questionRouter } from './routes/question.route.js'
+import { resultRouter } from './routes/result.route.js'
 
 const app = express()
 app.use(express.json())
 
 app.use('/api/auth', userRouter)
+app.use('/api/tests', testRouter)
+app.use('/api/questions', questionRouter)
+app.use('/api/results', resultRouter)
 
 app.use(cors())
-
-app.get('/', (req, res) => {
-    console.log('kkkkkkk');
-    res.send('hello world')
-  })
-
 
 const startApp = async() => {
     try {

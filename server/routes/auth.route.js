@@ -11,7 +11,6 @@ export const userRouter = Router()
 
 userRouter.post('/register', async (req, res) => {
     try {
-        console.log('asdkjhsdf');
         const {email, password} = req.body
         // Ищем в БД email
         const condidate = await findUser('email', email)

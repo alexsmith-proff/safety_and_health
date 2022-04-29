@@ -7,7 +7,11 @@ const questionSchema = new mongoose.Schema({
             answerText: String,
             answer: Boolean
         }
-    ]
+    ],
+    test: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Test'
+    }
 })
 
 export const questionModel = mongoose.model('Question', questionSchema)

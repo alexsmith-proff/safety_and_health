@@ -6,6 +6,11 @@ export async function findQuestions() {
 export async function findQuestionById(id) {
     return await questionModel.findById(id)
 }
+export async function findQuestionByTestId(id) {
+    return await questionModel.find({
+        test: id
+    })
+}
 
 export async function questionSaveDB(data) {
     const question = new questionModel

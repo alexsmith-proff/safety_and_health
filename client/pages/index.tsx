@@ -1,14 +1,22 @@
 import React from 'react'
-import MainContainer from '../components/MainContainer/MainContainer'
+import MainLayout from '../layouts/MainLayout'
 
-function Index() {
+function Index({tests}) {
   return ( 
     <div>
-        <MainContainer>
+        <MainLayout tests={tests}>
             Главная Страница
-        </MainContainer>
+        </MainLayout>
     </div>
   )
+}
+
+export async function getStaticProps()  {
+  const res = await fetch('http://localhost:5000/api/tests')
+  const tests = await res.json()
+  return {
+    props: {tests}
+  }
 }
 
 export default Index

@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { findQuestionById, findQuestions, questionSaveDB } from "../service/question.service.js"
+import { findQuestionById, findQuestionByTestId, findQuestions, questionSaveDB } from "../service/question.service.js"
 
 export const questionRouter = Router()
 
@@ -33,6 +33,16 @@ questionRouter.get('/:id', async(req, res) => {
         const question = await findQuestionById(req.params.id)
         // console.log('question', questions);
         res.status(200).json(question)        
+    } catch (error) {
+        res.status(500).json({
+            message: 'Ошибка получения вопроса'
+        })        
+    }
+})
+questionRouter.get('/test/:id', async(req, res) => {
+    try {
+        const questions = await findQuestionByTestId(req.params.id)
+        res.status(200).json(questions)        
     } catch (error) {
         res.status(500).json({
             message: 'Ошибка получения вопроса'

@@ -1,0 +1,20 @@
+.timer {
+    &List {
+        padding-top: 3px;
+        margin: 0 0 15px 20px;
+        display: flex;
+        // background-color: #777;
+        height: 5px;
+    }
+    &Item {
+        width: 50px;
+        height: 5px;
+        background-color: #ff6262;
+        box-shadow: 0px 4px 4px rgba(162, 161, 161, 0.5);
+        margin-right: 25px;
+    }
+    &Text {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}

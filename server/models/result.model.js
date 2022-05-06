@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 
 const ResultSchema = new mongoose.Schema({
-    idUser: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'User'
-    },
+    // idUser: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref : 'User'
+    // },
+
     test: {
         type: mongoose.Schema.Types.ObjectId,
         ref : 'Test'
     },
+    countAllQuestions: Number,
     noCorrectQuestions: [
         {
             idQuestion: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Qestion'
+                type: String
+                // type: mongoose.Schema.Types.ObjectId,
+                // ref: 'Question'
             },
             // Порядковый номер неправильного ответа
             noCorrectAnswer: Number
@@ -21,6 +24,7 @@ const ResultSchema = new mongoose.Schema({
     ],
     countNoCorrectAnswer : Number,
     created: Date
+
 })
 
 export const resultModel = mongoose.model('Result', ResultSchema)

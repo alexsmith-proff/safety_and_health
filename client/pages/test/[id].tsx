@@ -15,101 +15,124 @@ interface TestProps {
 
 const Test = ({ tests, questions }: TestProps) => {
   const router = useRouter()
-  const [workState, setWorkState] = useState(false)
+  const [workState, setWorkState] = useState(true)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [radioBtnClicked, setRadioBtnClicked] = useState(false)
   const [radioBtnIndex, setRadioBtnIndex] = useState(0)
+  const [notSelectAnswer, setNotSelectAnswer] = useState(false)
   const [result, setResult] = useState<IResultTest>({
     idUser: '1325456572',
-    test: 'qw23e324qwe',
+    test: router.query.id,
+    countAllQuestions: questions.length,
     countNoCorrectAnswer: 0,
     noCorrectQuestions: []
   })
 
-  const getResult = () => {
-    console.log('Ответ', questions[questionIndex].answers[radioBtnIndex].answer);
-  }
-
   const handleRadioBtnClick = (index: number) => {
     setRadioBtnClicked(true)
     setRadioBtnIndex(index)
+    setNotSelectAnswer(false)
+  }
+
+  const timeOut = () => {
+    console.log('TIMEOUT')
+    //Обработка результатов
+    // noCorrectAnswer = 0 - сработал TimeOut
+    setResult({
+      ...result, countNoCorrectAnswer: result.countNoCorrectAnswer + 1,
+      noCorrectQuestions: [
+        ...result.noCorrectQuestions, { idQuestion: questions[questionIndex]._id, noCorrectAnswer: 0 }
+      ]
+    })
+    // Следующий вопрос
+    if (questionIndex < questions.length) {
+      setQuestionIndex((prev) => prev + 1)
+    }
+    setWorkState(false)
   }
 
   const handleBtnClick = () => {
     // Проверка выбора ответа
     if (!radioBtnClicked) {
-      return alert('Выберите ответ')
+      return setNotSelectAnswer(true)
+    } else {
+      setNotSelectAnswer(false)
     }
     // Проверка результата
     if (!questions[questionIndex].answers[radioBtnIndex].answer) {
-      // setResult({...result, countNoCorrectAnswer: result.countNoCorrectAnswer + 1})
       setResult({
         ...result, countNoCorrectAnswer: result.countNoCorrectAnswer + 1,
         noCorrectQuestions: [
-          ...result.noCorrectQuestions, { idQuestion: 'qwerty', noCorrectAnswer: radioBtnIndex }
+          ...result.noCorrectQuestions, { idQuestion: questions[questionIndex]._id, noCorrectAnswer: radioBtnIndex + 1 }
         ]
       })
     }
-    // setResult({...result, countNoCorrectAnswer: 3})
-
-
-    if (questionIndex < questions.length - 1) {
+    // Следующий вопрос
+    if (questionIndex < questions.length) {
       setQuestionIndex((prev) => prev + 1)
-    } else {
-      router.push('/')
     }
-
     setRadioBtnClicked(false)
-  }
-  console.log('result', result);
-
-
-  useEffect(() => {
-    // setWorkState(true)
-  })
-  console.log('ididididid');
-  
-
-
-  function handlerClickOn(){
-    setWorkState(true)
-  }
-  function handlerClickOff(){
     setWorkState(false)
   }
 
+  useEffect(() => {
+    if (questionIndex >= questions.length) {
+      axios.post('http://localhost:5000/api/results/create', {
+        // idUser: result.idUser,
+        test: result.test,
+        countAllQuestions: result.countAllQuestions,
+        countNoCorrectAnswer: result.countNoCorrectAnswer,
+        noCorrectQuestions: [...result.noCorrectQuestions],
+      })
+        .then(response => router.push('/result/' + response.data.id))
+    }
+  }, [questionIndex])
+
+
   return (
     <MainLayout tests={tests}>
-      <div className="container">
+      {
+        questionIndex < questions.length &&
+        <div className={st.questions}>
 
-        <TimerBlock workState={true}/>
+          <div className="container">
 
-        <div className={st.questionContainer}>
-          <h2 className={st.title}>{'ВОПРОС №' + (questionIndex + 1)}</h2>
-          <h3 className={st.text}>{questions[questionIndex].questionText}</h3>
-          <ul className={st.answersList}>
+            <TimerBlock workState={workState} setWorkState={setWorkState} timeOut={timeOut} />
+
+            <div className={st.questionContainer}>
+
+              <h2 className={st.title}>{'ВОПРОС №' + (questionIndex + 1)}</h2>
+              <h3 className={st.text}>{questions[questionIndex].questionText}</h3>
+
+
+              <ul className={st.answersList}>
+                {
+                  questions[questionIndex].answers.map((item, index) => (
+                    <li className={st.answersItem} key={item._id} onClick={() => handleRadioBtnClick(index)}>
+                      <input type="radio" id={item._id} name="group" value={index} onClick={() => handleRadioBtnClick(index)} />
+                      <label className={st.answersText} htmlFor={item._id}>{item.answerText}</label>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            {/* <div className={st.btnCont}> */}
+            <button className={st.btn} onClick={handleBtnClick}>
+              {
+                questionIndex == questions.length - 1 ? 'Последний вопрос' : 'Следующий вопрос'
+              }
+            </button>
             {
-              questions[questionIndex].answers.map((item, index) => (
-                <li className={st.answersItem} key={item._id} onClick={() => handleRadioBtnClick(index)}>
-                  <input type="radio" id={item._id} name="group" value={index} onClick={() => handleRadioBtnClick(index)} />
-                  <label className={st.answersText} htmlFor={item._id}>{item.answerText}</label>
-                </li>
-              ))
+              notSelectAnswer && <div className={st.error}>Выберите ответ</div>
             }
-          </ul>
+            {/* <button onClick={handlerClickOn}>ON</button> */}
+            {/* <button onClick={handlerClickOff}>OFF</button> */}
+            {/* </div> */}
+
+          </div>
         </div>
-        {/* <div className={st.btnCont}> */}
-        <button className={st.btn} onClick={handleBtnClick}>
-          {
-            questionIndex == questions.length - 1 ? 'Последний вопрос' : 'Следующий вопрос'
-          }
-        </button>
-        <button onClick={handlerClickOn}>ON</button>
-        <button onClick={handlerClickOff}>OFF</button>
-        {/* </div> */}
-
-      </div>
-
+      }
 
     </MainLayout>
 
@@ -123,7 +146,6 @@ export async function getServerSideProps({ query }) {
   const questions = await axios.get('http://localhost:5000/api/questions/test/' + query.id)
     .then(response => response.data)
 
-  // console.log(questions)  
   return {
     props: { tests, questions }
   }

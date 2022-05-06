@@ -2,25 +2,28 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 
 import st from './timerblock.module.scss'
 
-type TimerBlockProps = {
-  workState: boolean
-}
+// type TimerBlockProps = {
+//   workState: boolean,
+//   setWorkState : () => void
+// }
 
-
-const TimerBlock = ({ workState }: TimerBlockProps) => {
+const TimerBlock = ({ workState, setWorkState, timeOut }) => {
   let intervalRef = useRef(null)
-  const timerListRef = useRef(null)
+  const timerListRef = useRef<HTMLDivElement>(null)
 
   const [timeLeft, setTimeLeft] = useState(0)
 
   const TimerFunc = (workSt) => {
-    console.log('TimerFunc');
     if (workSt) {
       intervalRef.current = setInterval(() => {
         setTimeLeft((prev) => prev + 1)
       }, 1000)
     } else {
       clearInterval(intervalRef.current)
+      setTimeLeft(0)
+      timerListRef.current.innerHTML = ''
+      setWorkState(true)
+      
     }
   }
 
@@ -29,9 +32,10 @@ const TimerBlock = ({ workState }: TimerBlockProps) => {
   }, [workState])
 
   useEffect(() => {
+    // console.log('timeLeft = ', timeLeft);
+    
     if (timeLeft === 60) {
-      // TimerFunc(false)
-      // alert('Вышло время')
+      timeOut()
     }
     if ((timeLeft % 4 === 0) && (timeLeft != 0)) {
       let elem = document.createElement('div')
@@ -41,8 +45,6 @@ const TimerBlock = ({ workState }: TimerBlockProps) => {
 
   }, [timeLeft])
 
-  console.log('asdasdasd');
-  
   return (
     <div className={st.timer}>
       <div className={st.timerList} ref={timerListRef}>

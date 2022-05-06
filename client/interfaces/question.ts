@@ -19,6 +19,7 @@ export interface IResultTest {
     _id?: string,
     idUser: string,
     test: string,
+    countAllQuestions: number,
     countNoCorrectAnswer: number,
     noCorrectQuestions: INoCorrectQuestion[]
 }

@@ -1,0 +1,30 @@
+.results{
+    width: 100vw;
+    height: calc(100vh - 112px);
+    background-image: url('/img/bg2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title {
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 700;
+    padding-top: 115px;
+    margin-bottom: 60px;
+}
+.subtitle {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+    margin-bottom: 60px;
+}
+.textResults {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 30px;
+}

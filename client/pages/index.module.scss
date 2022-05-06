@@ -1,0 +1,17 @@
+.main{
+    width: 100vw;
+    height: calc(100vh - 112px);
+    background-image: url('/img/bg1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.title{
+    font-size: 62px;
+    text-align: center;
+    padding-top: 150px;
+    margin-bottom: 50px;
+}
+.subtitle{
+    font-size: 42px;
+    text-align: center;
+}

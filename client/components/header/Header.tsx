@@ -24,9 +24,11 @@ function Header({ tests }: HeaderProps) {
                 <div className={st.headerContainer}>
                     <div className={st.burgerBtn + ' ' + (openMenu ? st.open : '')} onClick={handleBurgerClick}><span></span></div>
                     <div className={st.logoContainer}>
-                        <div className={st.logo}>
-                            <Image src="/logo.png" width={118} height={63} placeholder="empty" alt="logo" />
-                        </div>
+                        <Link href={'/'}>
+                            <a className={st.logo}>
+                                <Image src="/logo.png" width={118} height={63} placeholder="empty" alt="logo" />
+                            </a>
+                        </Link>
                         <div className={st.logoText}>Пульсар-телеком</div>
                     </div>
                     <div className={st.containerBtn}>

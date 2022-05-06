@@ -10,12 +10,15 @@ import { resultRouter } from './routes/result.route.js'
 const app = express()
 app.use(express.json())
 
+app.use(cors())
+
 app.use('/api/auth', userRouter)
 app.use('/api/tests', testRouter)
 app.use('/api/questions', questionRouter)
 app.use('/api/results', resultRouter)
 
-app.use(cors())
+
+
 
 const startApp = async() => {
     try {

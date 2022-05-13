@@ -2,10 +2,12 @@
     background-color: #0f3991;
     color: #fff;
     padding: 9px 0 11px;
+    height: 92px;
     &Container {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-top: 25px;
     }
 }
 .burgerBtn {
@@ -61,6 +63,11 @@
     }
     
 }
+.logoWrap{
+    position: absolute;
+    left: 45%;
+    top: 10px;
+}
 .logoContainer {
     display: flex;
     flex-direction: column;
@@ -80,6 +87,7 @@
 }
 .containerBtn {
     display: flex;
+    align-items: center;
 }
 .btn{
     font-size: 16px;
@@ -88,7 +96,7 @@
     padding: 8px 0;
     border: 1px solid #fff;
     cursor: pointer;
-    transition: all .6s;
+    transition: color, background-color .6s;
     &:hover{
         color: #0f3991;
         background-color: #fff;
@@ -100,6 +108,10 @@
 }
 .loginBtn {
     padding: 8px 23px;    
+}
+.name{
+    font-size: 14px;
+    margin-right: 30px;
 }
 .menu{
     width: 28%;

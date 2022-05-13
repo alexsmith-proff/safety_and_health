@@ -1,8 +1,9 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import validator from 'validator';
+import validator from 'validator'
+import allEndPoints from '../../services/api/api'
 
-import st from './register.module.scss';
+import st from './register.module.scss'
 
 const RegisterPage:React.FC = () => {
     const router = useRouter()
@@ -21,8 +22,6 @@ const RegisterPage:React.FC = () => {
 
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value)
-
-        // setEmail(e.target.value);
     }
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
@@ -60,13 +59,13 @@ const RegisterPage:React.FC = () => {
             setIsLastNameAlert(true)
         }else{
           try {
-            // const response = await allEndpoints.auth.registration({
-            //   "email": email,
-            //   "password": password,
-            //   "firstName": firstName,
-            //   "lastName": lastName
-            // })
-            // navigate('/login')          
+            const response = await allEndPoints.auth.registartion({
+              "email": email,
+              "password": password,
+              "firstName": firstName,
+              "lastName": lastName
+            })
+            router.push('/login')          
           } catch (e) {
             if(e.response.status === 422){
               console.log('status 422')

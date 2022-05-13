@@ -11,8 +11,7 @@ interface ResultProps {
     result: IResultTest
 }
 
-const Result = ({ tests, result }: ResultProps) => {
-    console.log('result', result);
+const Result: React.FC<ResultProps> = ({ tests, result }) => {
 
     return (
         <MainLayout tests={tests}>
@@ -41,7 +40,6 @@ export async function getServerSideProps({ query }) {
 
     const result = await axios.get('http://localhost:5000/api/results/' + query.id)
         .then(response => response.data)
-
 
     return {
         props: { tests, result }

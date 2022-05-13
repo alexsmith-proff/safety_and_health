@@ -123,7 +123,7 @@ userRouter.post('/login', async (req, res) => {
 
 userRouter.get('/me', async (req, res) => {
     try {
-        console.log('mjhgjhgjh');
+        // console.log('mjhgjhgjh');
         // console.log(req.headers.authorization)
         if(!req.headers.authorization){
             return res.status(403).json({

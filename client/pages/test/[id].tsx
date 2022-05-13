@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useAppSelector } from '../../redux/hooks'
 import React, { useEffect, useState } from 'react'
-import { IQuestion, IResultTest } from '../../interfaces/question'
-import { ITest } from '../../interfaces/test'
 import MainLayout from '../../layouts/MainLayout'
 import TimerBlock from '../../components/timerblock/TimerBlock'
+
+import { IQuestion, IResultTest } from '../../interfaces/question'
+import { ITest } from '../../interfaces/test'
 
 import st from './id.module.scss'
 
@@ -13,20 +15,27 @@ interface TestProps {
   questions: IQuestion[]
 }
 
-const Test = ({ tests, questions }: TestProps) => {
+const Test: React.FC<TestProps> = ({ tests, questions }) => {
+  const user = useAppSelector(state => state.user.user)
   const router = useRouter()
-  const [workState, setWorkState] = useState(true)
-  const [questionIndex, setQuestionIndex] = useState(0)
-  const [radioBtnClicked, setRadioBtnClicked] = useState(false)
-  const [radioBtnIndex, setRadioBtnIndex] = useState(0)
-  const [notSelectAnswer, setNotSelectAnswer] = useState(false)
+  const [workState, setWorkState] = useState<boolean>(true)
+  const [questionIndex, setQuestionIndex] = useState<number>(0)
+  const [radioBtnClicked, setRadioBtnClicked] = useState<boolean>(false)
+  const [radioBtnIndex, setRadioBtnIndex] = useState<number>(0)
+  const [notSelectAnswer, setNotSelectAnswer] = useState<boolean>(false)
   const [result, setResult] = useState<IResultTest>({
     idUser: '1325456572',
-    test: router.query.id,
+    test: String(router.query.id),
     countAllQuestions: questions.length,
     countNoCorrectAnswer: 0,
     noCorrectQuestions: []
   })
+
+  useEffect(() => {
+    if(!Object.keys(user).length) {
+      router.push('/login')
+    }
+  }, [])
 
   const handleRadioBtnClick = (index: number) => {
     setRadioBtnClicked(true)
@@ -94,17 +103,11 @@ const Test = ({ tests, questions }: TestProps) => {
       {
         questionIndex < questions.length &&
         <div className={st.questions}>
-
           <div className="container">
-
             <TimerBlock workState={workState} setWorkState={setWorkState} timeOut={timeOut} />
-
             <div className={st.questionContainer}>
-
               <h2 className={st.title}>{'ВОПРОС №' + (questionIndex + 1)}</h2>
               <h3 className={st.text}>{questions[questionIndex].questionText}</h3>
-
-
               <ul className={st.answersList}>
                 {
                   questions[questionIndex].answers.map((item, index) => (
@@ -116,8 +119,6 @@ const Test = ({ tests, questions }: TestProps) => {
                 }
               </ul>
             </div>
-
-            {/* <div className={st.btnCont}> */}
             <button className={st.btn} onClick={handleBtnClick}>
               {
                 questionIndex == questions.length - 1 ? 'Последний вопрос' : 'Следующий вопрос'
@@ -126,16 +127,10 @@ const Test = ({ tests, questions }: TestProps) => {
             {
               notSelectAnswer && <div className={st.error}>Выберите ответ</div>
             }
-            {/* <button onClick={handlerClickOn}>ON</button> */}
-            {/* <button onClick={handlerClickOff}>OFF</button> */}
-            {/* </div> */}
-
           </div>
         </div>
       }
-
     </MainLayout>
-
   )
 }
 

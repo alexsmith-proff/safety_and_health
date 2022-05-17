@@ -1,0 +1,21 @@
+.sideBar{
+    
+    cursor: pointer;
+    margin-right: 35px;
+}
+.item{
+    font-size: 22px;
+    line-height: 26px;
+    width: 250px;
+    padding: 35px 40px 35px 20px;
+    background-color: #D9E2F5;
+    border-bottom: 1px solid #000;
+    &:hover{
+        background-color: #a7c0f5;
+        transition: background-color .5s;
+    }
+}
+.item.active{
+    background-color: #0F3991;
+    color: #fff
+}

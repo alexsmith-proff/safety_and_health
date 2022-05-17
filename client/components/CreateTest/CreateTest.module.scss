@@ -1,0 +1,18 @@
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.title {
+    font-size: 18px;
+    line-height: 21px;
+}
+.input {
+    font-size: 18px;
+    line-height: 21px;
+    width: 100%;
+    padding: 7px 15px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}

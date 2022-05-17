@@ -1,0 +1,13 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #0F3991;
+    // table-layout: fixed;
+}
+.th{
+    width: 30px;
+}
+.th, .td{
+    border: 2px solid #0F3991;
+    padding: 10px 20px;
+}

@@ -1,14 +1,16 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../components/header/Header'
-import { ITest } from '../interfaces/test';
+import { ITest } from '../../interfaces/test';
 
-interface MainLayoutProps{
+import s from './AdminLayout.module.scss'
+import Header from '../../components/header/Header';
+
+interface MainLayoutProps {
     tests: ITest[],
     children: React.ReactNode
 }
 
-const MainLayout = ({ tests, children }: MainLayoutProps) => {
+const AdminLayout = ({ tests, children }: MainLayoutProps) => {
     return (
         <>
             <Head>
@@ -17,13 +19,21 @@ const MainLayout = ({ tests, children }: MainLayoutProps) => {
                 <link rel="preconnect" href="https://fonts.gstatic.com"></link>
                 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet"></link>
             </Head>
+
             <Header tests={tests} />
 
-            
-            {children}
+            <div className="container">
+                <div className={s.admin}>
+                    <div className={s.adminWrap}>
+                        {children}
+                    </div>
+                </div>
+
+            </div>
+
 
         </>
     );
 };
 
-export default MainLayout;
+export default AdminLayout;

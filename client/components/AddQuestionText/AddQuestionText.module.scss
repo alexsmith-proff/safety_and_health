@@ -1,0 +1,21 @@
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.title {
+    font-size: 18px;
+    line-height: 21px;
+    color: #0f3991;
+}
+.input {
+    width: 100%;
+    font-size: 18px;
+    line-height: 21px;
+    color: #0f3991;
+    border: 1px solid #0f3991;
+    // background-color: transparent;
+    padding: 7px 15px;
+    margin-bottom: 15px;
+}

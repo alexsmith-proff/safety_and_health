@@ -1,0 +1,16 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.item{
+    margin-bottom: 25px;
+}
+.btn{
+    text-align: center;
+}

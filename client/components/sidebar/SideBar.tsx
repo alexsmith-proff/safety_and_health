@@ -1,14 +1,40 @@
+import Link from 'next/link';
 import React from 'react';
 
 import st from './sidebar.module.scss'
 
-const SideBar = () => {
+interface SideBarProps {
+    item: number,
+}
+const sideBarArr = [
+    {
+        url: '/admin/tests',
+        text: 'Тесты'
+    },
+    {
+        url: '/admin/questions',
+        text: 'Вопросы и ответы'
+    },
+    {
+        url: '/admin/results',
+        text: 'Результаты'
+    }
+]
+
+const SideBar: React.FC<SideBarProps> = ({ item }) => {
     return (
         <div className={st.sideBar}>
             <ul className={st.list}>
-                <li className={st.item}>Тесты</li>
-                <li className={st.item + ' ' + st.active}>Вопросы и ответы</li>
-                <li className={st.item}>Результаты</li>
+                {
+                    sideBarArr.map((i, index) => 
+                    <li className={index==item ? (st.item + ' ' + st.active) : st.item}>
+                        <Link href={i.url}>
+                            <a>
+                                {i.text}
+                            </a>
+                        </Link>
+                    </li> 
+                    )}
             </ul>
         </div>
     );

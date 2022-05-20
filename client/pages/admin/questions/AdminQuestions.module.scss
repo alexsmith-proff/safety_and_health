@@ -1,0 +1,15 @@
+.sideContent{
+    background-color: #D9E2F5;
+    width: 100%;
+    height: calc(100vh - 177px);
+    padding: 20px;
+}
+.wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.comboBox{
+    width: 500px;
+}

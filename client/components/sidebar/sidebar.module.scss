@@ -3,7 +3,8 @@
     cursor: pointer;
     margin-right: 35px;
 }
-.item{
+.item a{
+    display: block;
     font-size: 22px;
     line-height: 26px;
     width: 250px;
@@ -15,7 +16,7 @@
         transition: background-color .5s;
     }
 }
-.item.active{
+.item.active a{
     background-color: #0F3991;
     color: #fff
 }

@@ -1,0 +1,83 @@
+.testComboBox {
+    display: flex;
+    align-items: center;
+}
+.title {
+    font-size: 18px;
+    line-height: 21px;
+}
+.dropdown {
+    margin: 0 10px;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 28px;
+    width: 50%;
+    background-color: transparent;
+    border: 1px solid #0f3991;
+}
+
+.dropdown:after {
+    content: "";
+    position: absolute;
+    z-index: 99;
+    top: 12px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #0f3991;
+}
+
+.dropdownSelect {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 6px 8px 6px 10px;
+    height: 28px;
+    line-height: 14px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #0F3991;
+    text-shadow: 0 1px white;
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.dropdownSelect:focus {
+    z-index: 3;
+    width: 100%;
+    color: #0F3991;
+}
+
+.dropdownSelect > option {
+    margin: 3px;
+    padding: 6px 8px;
+    text-shadow: none;
+
+}
+
+.lt-ie9 .dropdown {
+    z-index: 1;
+
+}
+
+.lt-ie9 .dropdownSelect {
+    z-index: -1;
+}
+
+.lt-ie9 .dropdownSelect:focus {
+    z-index: 3;
+}
+
+@-moz-document url-prefix() {
+    .dropdownSelect {
+        padding-left: 6px;
+    }
+}

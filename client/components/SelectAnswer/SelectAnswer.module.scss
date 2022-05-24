@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-top: 35px;
 }
 .list{
     display: flex;
@@ -9,7 +10,8 @@
     align-items: center;
 }
 .item{
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    margin-right: 15px;
 }
 .btn{
     text-align: center;

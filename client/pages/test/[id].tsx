@@ -135,10 +135,10 @@ const Test: React.FC<TestProps> = ({ tests, questions }) => {
 }
 
 export async function getServerSideProps({ query }) {
-  const tests = await axios.get('http://localhost:5000/api/tests')
+  const tests = await axios.get(process.env.SERVER_URL + '/api/tests')
     .then(response => response.data)
 
-  const questions = await axios.get('http://localhost:5000/api/questions/test/' + query.id)
+  const questions = await axios.get(process.env.SERVER_URL + '/api/questions/test/' + query.id)
     .then(response => response.data)
 
   return {

@@ -9,20 +9,20 @@ import AdminLayout from '../../../layouts/AdminLayout/AdminLayout';
 import SideBar from '../../../components/sidebar/SideBar';
 import NewTestBtn from '../../../components/NewTestBtn/NewTestBtn';
 import AllTest from '../../../components/AllTest/AllTest';
+import Link from 'next/link';
 
 interface AdminProps {
     tests: ITest[]
 }
 
 const AdminTests: React.FC<AdminProps> = ({ tests }) => {
-
     return (
         <AdminLayout tests={tests}>
             <SideBar item={0} />
 
             <div className={s.sideContent}>
-                <NewTestBtn />
-                <AllTest />
+                <NewTestBtn link='/admin/tests/newtest' />
+                <AllTest tests={tests} />
             </div>
 
 
@@ -32,7 +32,7 @@ const AdminTests: React.FC<AdminProps> = ({ tests }) => {
 };
 
 export async function getServerSideProps() {
-    const tests = await axios.get('http://localhost:5000/api/tests')
+    const tests = await axios.get(process.env.SERVER_URL + '/api/tests')
         .then(response => response.data)
 
     return {

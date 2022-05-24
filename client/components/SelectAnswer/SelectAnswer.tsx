@@ -4,6 +4,7 @@ import Button from '../button/Button';
 import s from './SelectAnswer.module.scss'
 
 const SelectAnswer: React.FC = () => {
+    function createQuestion() {}
     return (
         <div className={s.main}>
             <ul className={s.list}>
@@ -21,7 +22,7 @@ const SelectAnswer: React.FC = () => {
                 </li>
             </ul>
             <div className={s.btn}>
-                <Button>Создать вопрос</Button>
+                <Button clickButton={createQuestion}>Создать вопрос</Button>
             </div>
         </div>
     );

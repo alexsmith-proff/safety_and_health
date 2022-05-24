@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { findTestById, findTests, testSaveDB } from "../service/test.service.js"
+import { deleteTestById, findTestById, findTests, testSaveDB } from "../service/test.service.js"
 
 export const testRouter = Router()
 
@@ -34,6 +34,17 @@ testRouter.get('/:id', async(req, res) => {
     } catch (error) {
         res.status(500).json({
             message: 'Ошибка получения теста'
+        })        
+    }
+})
+testRouter.post('/delete', async(req, res) => {
+    try {
+        const { id } = req.body
+        const test = await deleteTestById(id)
+        res.status(200).json(test)        
+    } catch (error) {
+        res.status(500).json({
+            message: 'Ошибка удаления теста'
         })        
     }
 })

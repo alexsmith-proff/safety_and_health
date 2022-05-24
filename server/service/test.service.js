@@ -8,6 +8,10 @@ export async function findTestById(id) {
     return await testModel.findById(id)
 }
 
+export async function deleteTestById(id) {
+    return await testModel.deleteOne({_id: id})
+}
+
 export async function testSaveDB(title) {
     const test = new testModel({title})
     return await test.save()

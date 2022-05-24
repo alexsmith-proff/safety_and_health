@@ -11,6 +11,7 @@ import s from './AdminQuestions.module.scss'
 import TestComboBox from '../../../components/TestComboBox/TestComboBox';
 import AllQuestions from '../../../components/AllQuestions/AllQuestions';
 import Button from '../../../components/button/Button';
+import { useRouter } from 'next/router';
 
 
 
@@ -20,6 +21,11 @@ interface AdminProps {
 }
 
 const AdminQuestionsAnswers: React.FC<AdminProps> = ({ tests }) => {
+    const router = useRouter()
+
+    function clickAddQuestion() {
+        router.push('/admin/questions/newquestion')        
+    } 
 
     return (
         <AdminLayout tests={tests}>
@@ -28,9 +34,9 @@ const AdminQuestionsAnswers: React.FC<AdminProps> = ({ tests }) => {
             <div className={s.sideContent}>
                 <div className={s.wrap}>
                     <div className={s.comboBox}>
-                        <TestComboBox />
+                        <TestComboBox tests={tests} />
                     </div>
-                    <Button>Новый вопрос</Button>
+                    <Button clickButton={clickAddQuestion}>Новый вопрос</Button>
                 </div>
                 <AllQuestions />
             </div>
@@ -39,7 +45,7 @@ const AdminQuestionsAnswers: React.FC<AdminProps> = ({ tests }) => {
 };
 
 export async function getServerSideProps() {
-    const tests = await axios.get('http://localhost:5000/api/tests')
+    const tests = await axios.get(process.env.SERVER_URL + '/api/tests')
         .then(response => response.data)
 
     return {

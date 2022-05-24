@@ -1,15 +1,18 @@
 import React from 'react';
 
-import st from './button.module.scss'
+import s from './button.module.scss'
 
 interface ButtonProps {
+    clickButton: () => void,
+    dblClickButton?: () => void,
+    isFixed?: boolean,
     children: React.ReactNode
 }
 
-const Button: React.FC<ButtonProps> = ({ children }) => {
+const Button: React.FC<ButtonProps> = ({ clickButton, dblClickButton, isFixed, children }) => {
     return (
         <div>
-            <button className={st.btn}>{children}</button>
+            <button className={s.btn + ' ' + (isFixed ? s.fixed : '')} onClick={clickButton} onDoubleClick={dblClickButton}>{children}</button>
         </div>
     );
 };

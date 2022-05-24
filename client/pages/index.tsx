@@ -24,7 +24,7 @@ function Index({ tests }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('http://localhost:5000/api/tests')
+  const res = await fetch(process.env.SERVER_URL + '/api/tests')
   const tests = await res.json()
 
   return {

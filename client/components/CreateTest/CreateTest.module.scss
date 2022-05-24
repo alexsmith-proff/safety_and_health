@@ -16,3 +16,22 @@
     margin-bottom: 30px;
     box-sizing: border-box;
 }
+.btnContainer {
+    display: flex;
+    align-items: center;
+}
+.alarmText {
+    margin-left: 15px;
+    display: none;
+    &.good {
+        color: #080;
+        display: block;
+    }
+    &.bad {
+        color: #f00;
+        display: block;
+    }
+    &.hidden{
+        display: none;
+    }
+}

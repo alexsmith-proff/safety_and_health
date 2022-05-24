@@ -27,7 +27,7 @@ const AdminResults: React.FC<AdminProps> = ({ tests }) => {
 };
 
 export async function getServerSideProps() {
-    const tests = await axios.get('http://localhost:5000/api/tests')
+    const tests = await axios.get(process.env.SERVER_URL + '/api/tests')
         .then(response => response.data)
 
     return {

@@ -27,7 +27,7 @@ const SideBar: React.FC<SideBarProps> = ({ item }) => {
             <ul className={st.list}>
                 {
                     sideBarArr.map((i, index) => 
-                    <li className={index==item ? (st.item + ' ' + st.active) : st.item}>
+                    <li className={index==item ? (st.item + ' ' + st.active) : st.item} key={index}>
                         <Link href={i.url}>
                             <a>
                                 {i.text}

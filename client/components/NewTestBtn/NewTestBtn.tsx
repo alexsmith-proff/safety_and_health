@@ -1,11 +1,20 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import Button from '../button/Button';
 import s from './NewTestBtn.module.scss'
 
-const NewTestBtn: React.FC = () => {
+type NewTestBtnProps = {
+    link: string
+}
+
+const NewTestBtn: React.FC<NewTestBtnProps> = ({ link }) => {
+    const router = useRouter()
+    function handleClick() {
+        router.push(link)
+    }
     return (
         <div className={s.main}>
-            <Button>Новый тест</Button>            
+            <Button clickButton={handleClick}>Новый тест</Button>            
         </div>
     );
 };

@@ -1,16 +1,21 @@
 import React from 'react';
+import { ITest } from '../../interfaces/test';
 import s from './TestComboBox.module.scss'
 
-const TestComboBox: React.FC = () => {
+type TestComboBoxProps = {
+    tests: ITest[]
+}
+
+const TestComboBox: React.FC<TestComboBoxProps> = ({ tests }) => {
     return (
         <div className={s.testComboBox}>
             <div className={s.title}>Тест</div>
             <div className={s.dropdown}>
                 <select name="one" className={s.dropdownSelect}>
                     <option value=""></option>
-                    <option value="1">Тест 1</option>
-                    <option value="2">Тест 2</option>
-                    <option value="3">Тест 3</option>
+                    {
+                        tests.map((item, index) => <option key={item._id} value={index}>{item.title}</option>)
+                    }
                 </select>
             </div>
 

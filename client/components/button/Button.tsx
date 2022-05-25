@@ -6,13 +6,14 @@ interface ButtonProps {
     clickButton: () => void,
     dblClickButton?: () => void,
     isFixed?: boolean,
+    isDisabled?: boolean,
     children: React.ReactNode
 }
 
-const Button: React.FC<ButtonProps> = ({ clickButton, dblClickButton, isFixed, children }) => {
+const Button: React.FC<ButtonProps> = ({ clickButton, dblClickButton, isFixed, isDisabled, children }) => {
     return (
         <div>
-            <button className={s.btn + ' ' + (isFixed ? s.fixed : '')} onClick={clickButton} onDoubleClick={dblClickButton}>{children}</button>
+            <button className={s.btn + ' ' + (isFixed ? s.fixed : '') + (isDisabled ? s.noActive : '')} onClick={!isDisabled ? clickButton : null} onDoubleClick={dblClickButton}>{children}</button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ITest } from '../../../interfaces/test';
 
@@ -12,6 +12,7 @@ import TestComboBox from '../../../components/TestComboBox/TestComboBox';
 import AllQuestions from '../../../components/AllQuestions/AllQuestions';
 import Button from '../../../components/button/Button';
 import { useRouter } from 'next/router';
+import { IQuestion } from '../../../interfaces/question';
 
 
 
@@ -22,10 +23,22 @@ interface AdminProps {
 
 const AdminQuestionsAnswers: React.FC<AdminProps> = ({ tests }) => {
     const router = useRouter()
+    const [testIndex, setTestIndex] = useState<number>(0)
+    const [questions, setQuestions] = useState<IQuestion[]>([])
 
     function clickAddQuestion() {
-        router.push('/admin/questions/newquestion')        
-    } 
+        router.push('/admin/questions/newquestion')
+    }
+
+    function setTest(testIndex: number) {
+        setTestIndex(testIndex)
+    }
+
+    useEffect(() => {
+        if (tests.length > 0) {
+            axios.get(process.env.SERVER_URL + '/api/questions/test/' + tests[testIndex]._id).then((res) => setQuestions(res.data))
+        }
+    }, [testIndex])
 
     return (
         <AdminLayout tests={tests}>
@@ -34,11 +47,11 @@ const AdminQuestionsAnswers: React.FC<AdminProps> = ({ tests }) => {
             <div className={s.sideContent}>
                 <div className={s.wrap}>
                     <div className={s.comboBox}>
-                        <TestComboBox tests={tests} />
+                        <TestComboBox tests={tests} setTest={setTest} />
                     </div>
                     <Button clickButton={clickAddQuestion}>Новый вопрос</Button>
                 </div>
-                <AllQuestions />
+                <AllQuestions questions={questions} />
             </div>
         </AdminLayout>
     );

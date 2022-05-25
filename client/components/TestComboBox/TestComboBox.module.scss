@@ -14,8 +14,8 @@
     display: inline-block;
     position: relative;
     overflow: hidden;
-    height: 28px;
-    width: 50%;
+    height: 33px;
+    width: 300px;
     background-color: transparent;
     border: 1px solid #0f3991;
 }
@@ -24,7 +24,7 @@
     content: "";
     position: absolute;
     z-index: 99;
-    top: 12px;
+    top: 15px;
     right: 10px;
     width: 0;
     height: 0;
@@ -38,7 +38,7 @@
     width: 100%;
     margin: 0;
     padding: 6px 8px 6px 10px;
-    height: 28px;
+    height: 33px;
     line-height: 14px;
     font-size: 16px;
     line-height: 19px;

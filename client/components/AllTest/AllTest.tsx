@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ITest } from '../../interfaces/test';
 import { AiOutlineDelete } from "react-icons/ai"
 
@@ -10,49 +10,20 @@ type AllTestProps = {
 }
 
 const AllTest: React.FC<AllTestProps> = ({ tests }) => {
-    const t = [
-        {
-            _id: 'q',
-            title: 'test1'
-        },
-        {
-            _id: 'qw',
-            title: 'test2'
-        },
-        {
-            _id: 'qwe',
-            title: 'test3'
-        },
-        {
-            _id: 'qwer',
-            title: 'test4'
-        },
-    ]
 
-    const [isT, setIsT] = useState('sdsd')
+    const [testsArr, setTestsArr] = useState<ITest[]>([...tests])
 
     async function handleClickDelete(idTest: string) {
-        setIsT('iiiiiiiiiii')
-        // tests[0].title='dddddddddd'
-        // t.filter(test => test._id !== idTest)
-        console.log('idTest', idTest);
-        
-        // try {
-        //     await axios.post(process.env.SERVER_URL + '/api/tests/delete', {
-        //         id: idTest
-        //     }).then((response => response.data))
-        //     tests.filter(test => test._id !== idTest)
-        // } catch (error) {
-        //     console.log('error', error);
-        // }
+        setTestsArr(testsArr.filter(test => test._id !== idTest))
+        try {
+            await axios.post(process.env.SERVER_URL + '/api/tests/delete', {
+                id: idTest
+            }).then((response => response.data))
+            tests.filter(test => test._id !== idTest)
+        } catch (error) {
+            console.log('error', error);
+        }
     }
-    // useEffect(() => {
-    //     console.log('useEffect');
-
-    // }, [useEffect])
-
-    console.log('AllTest');
-    
 
     return (
         <div>
@@ -61,7 +32,7 @@ const AllTest: React.FC<AllTestProps> = ({ tests }) => {
                     <table className={s.table}>
                         <tbody>
                             {
-                                tests.map((item, index) => (
+                                testsArr.map((item, index) => (
                                     <tr key={item._id}>
                                         <th className={s.th}>{index + 1}</th>
                                         <td className={s.td}>
@@ -73,7 +44,7 @@ const AllTest: React.FC<AllTestProps> = ({ tests }) => {
                                                     <AiOutlineDelete
                                                         className={s.delete}
                                                         size={25}
-                                                        onClick={() => handleClickDelete('qw')}
+                                                        onClick={() => handleClickDelete(item._id)}
                                                     />
                                                 </div>
                                             </div>
@@ -85,21 +56,11 @@ const AllTest: React.FC<AllTestProps> = ({ tests }) => {
                                 ))
                             }
                         </tbody>
-                        {/* <AiOutlineDelete
-                            className={s.delete}
-                            size={25}
-                        // onClick={handleClickDelete}
-                        /> */}
                     </table>
-
                 )
                     :
                     <div>Тестов нет</div>
             }
-            {
-                t.map((item, index) => <div key={index}>{item.title}</div>)
-            }
-            {isT}
         </div>
     );
 };

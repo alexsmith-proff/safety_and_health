@@ -1,6 +1,6 @@
 interface IAnswer {
-    _id: string,
-    answerText: string,
+    _id?: string,
+    answerText?: string,
     answer: boolean    
 }
 interface INoCorrectQuestion {

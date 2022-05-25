@@ -4,6 +4,12 @@
     height: calc(100vh - 177px);
     padding: 20px;
 }
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
 .wrap{
     display: flex;
     justify-content: space-between;

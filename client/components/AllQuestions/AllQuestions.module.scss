@@ -11,3 +11,24 @@
     padding: 10px 20px;
     color: #0F3991;
 }
+.td{
+    cursor: pointer;
+    &:hover, th{
+        background-color: rgba(0, 0, 0, .05);
+    }
+}
+.wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.delete{
+    opacity: 0;
+    cursor: pointer;
+}
+.td:hover .delete{
+    opacity: 1;
+    transition: all .7s;
+    // background-color: chartreuse;
+    // display: block;
+}

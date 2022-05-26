@@ -14,9 +14,18 @@ const initialState: UserState = {
 
 export const getUserData = createAsyncThunk('user/getUserData', async(_, { rejectWithValue, dispatch }) => {
     // Запрос
-    const response = await allEndPoints.auth.getProfile({})
+    try {
+        const response = await allEndPoints.auth.getProfile({})
     console.log(response);
-    dispatch(setUserData(response.data.user))
+    dispatch(setUserData(response.data.user))        
+    } catch (error) {
+        if (error.response.status === 403) {
+            console.log(error);
+            
+            dispatch(setUserData({role: ''}))
+        }
+    }
+    
 })
 
 export const userSlice = createSlice({

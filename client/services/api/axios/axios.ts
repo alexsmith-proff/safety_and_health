@@ -10,6 +10,8 @@ axiosInstance.interceptors.request.use(config => {
         config.headers.authorization = `Bearer ${authToken}`
     }
     return config
-}, error => Promise.reject(error))
+}, error => {
+    Promise.reject(error)
+})
 
 export default axiosInstance

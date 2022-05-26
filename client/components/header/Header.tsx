@@ -7,13 +7,14 @@ import { ITest } from '../../interfaces/test'
 import st from './header.module.scss'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { setUserData } from '../../redux/user/userSlice'
-
+import { HeaderPanel } from '../../interfaces/enums'
 
 interface HeaderProps {
-    tests: ITest[]
+    tests: ITest[],
+    panel?: HeaderPanel
 }
 
-const Header: React.FC<HeaderProps> = ({ tests }) => {
+const Header: React.FC<HeaderProps> = ({ tests, panel }) => {
     const dispatch = useAppDispatch()
     const userData = useAppSelector(state => state.user.user)
 
@@ -32,33 +33,40 @@ const Header: React.FC<HeaderProps> = ({ tests }) => {
             <div className="container">
                 <div className={st.headerContainer}>
                     <div className={st.burgerBtn + ' ' + (openMenu ? st.open : '')} onClick={handleBurgerClick}><span></span></div>
-                    
+
                     <div className={st.containerBtn}>
-                    <div className={st.logoWrap}>
-                        <div className={st.logoContainer}>
-                            <Link href={'/'}>
-                                <a className={st.logo}>
-                                    <Image src="/logo.png" width={118} height={63} placeholder="empty" alt="logo" />
-                                </a>
-                            </Link>
-                            <div className={st.logoText}>Пульсар-телеком</div>
+                        <div className={st.logoWrap}>
+                            <div className={st.logoContainer}>
+                                <Link href={'/'}>
+                                    <a className={st.logo}>
+                                        <Image src="/logo.png" width={118} height={63} placeholder="empty" alt="logo" />
+                                    </a>
+                                </Link>
+                                <div className={st.logoText}>Пульсар-телеком</div>
+                            </div>
                         </div>
-                    </div>    
                         {
-                            Object.keys(userData).length
+                            panel !== HeaderPanel.admin
                                 ?
                                 <>
-                                    <div className={st.name}>Здравствуйте, {userData.surname} {userData.name}</div>
-                                    <div className={st.registerBtn + ' ' + st.btn} onClick={handlerLogoutClick}>Выйти</div>
+                                    {
+                                        Object.keys(userData).length
+                                            ?
+                                            <>
+                                                <div className={st.name}>Здравствуйте, {userData.surname} {userData.name}</div>
+                                                <div className={st.registerBtn + ' ' + st.btn} onClick={handlerLogoutClick}>Выйти</div>
+                                            </>
+                                            :
+                                            <>
+                                                <div className={st.registerBtn + ' ' + st.btn} onClick={() => router.push('/register')}>Регистрация</div>
+                                                <div className={st.loginBtn + ' ' + st.btn} onClick={() => router.push('/login')}>Войти</div>
+                                            </>
+                                    }
                                 </>
                                 :
                                 <>
-                                    <div className={st.registerBtn + ' ' + st.btn} onClick={() => router.push('/register')}>Регистрация</div>
-                                    <div className={st.loginBtn + ' ' + st.btn} onClick={() => router.push('/login')}>Войти</div>
                                 </>
                         }
-
-
                     </div>
                 </div>
                 <div className={st.menu + ' ' + (openMenu ? st.open : '')}>

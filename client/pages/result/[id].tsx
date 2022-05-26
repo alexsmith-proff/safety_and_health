@@ -38,7 +38,7 @@ export async function getServerSideProps({ query }) {
     const tests = await axios.get(process.env.SERVER_URL + '/api/tests')
         .then(response => response.data)
 
-    const result = await axios.get(process.env.SERVER_URL + '/api/results' + query.id)
+    const result = await axios.get(process.env.SERVER_URL + '/api/results/' + query.id)
         .then(response => response.data)
 
     return {

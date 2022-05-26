@@ -22,9 +22,7 @@ resultRouter.get('/', async(req, res) => {
     try {
         console.log('getRelts');
         const results = await findResults()
-        console.log('1');
         res.status(200).json(results)        
-        console.log('2');
     } catch (error) {
         res.status(500).json({
             message: 'Ошибка получения результатов'

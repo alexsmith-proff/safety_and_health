@@ -40,6 +40,9 @@ const RegisterPage:React.FC = () => {
     const handleCloseClick = () => {
       router.push('/')
     }
+    const handleLoginClick = () => {
+      router.push('/login')
+    }
 
     const handleRegisterClick = async() => {
         setIsEmailAlert(false)
@@ -82,7 +85,7 @@ const RegisterPage:React.FC = () => {
           <div className={st.title}>Регистрация</div>
           <button 
             className={st.loginbtn}
-            onClick={() => router.push('/login')}
+            onClick={handleLoginClick}
             >
             Войти
           </button>

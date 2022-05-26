@@ -1,10 +1,9 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import SideBar from '../../components/sidebar/SideBar';
 
 import { ITest } from '../../interfaces/test';
 
-import SideContent from '../../components/sidecontent/SideContent';
 import AdminLayout from '../../layouts/AdminLayout/AdminLayout';
 import NewTestBtn from '../../components/NewTestBtn/NewTestBtn';
 import AllTest from '../../components/AllTest/AllTest';
@@ -16,7 +15,6 @@ interface AdminProps {
 }
 
 const Admin: React.FC<AdminProps> = ({ tests }) => {
-
     return (
         <AdminLayout tests={tests}>
             <SideBar item={0} />

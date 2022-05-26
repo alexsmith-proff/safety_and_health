@@ -1,14 +1,8 @@
 import React, { useEffect } from 'react'
 import MainLayout from '../layouts/MainLayout'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { getUserData, setUserData } from '../redux/user/userSlice'
 import st from './index.module.scss'
 
 function Index({ tests }) {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(getUserData())
-  }, [])
   return (
     <div>
       <MainLayout tests={tests}>

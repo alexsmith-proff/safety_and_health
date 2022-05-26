@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import validator from 'validator'
 import allEndPoints from '../../services/api/api'
 import { useAppDispatch } from '../../redux/hooks'
+import { getUserData } from '../../redux/user/userSlice.ts'
 
 import st from './login.module.scss'
-import { getUserData } from '../../redux/user/userSlice.ts'
 
 function LoginPage() {
 
@@ -28,6 +28,9 @@ function LoginPage() {
   }
   const handleCloseClick = (e) => {
     router.push('/')
+  }
+  const handleRegistrationClick = (e) => {
+    router.push('/register')
   }
 
   const handleLoginClick = async() => {
@@ -62,7 +65,7 @@ return (
         <div className={st.title}>Вход</div>
         <button
           className={st.loginbtn}
-          onClick={() => navigate('/register')}
+          onClick={handleRegistrationClick}
           >
           Регистрация
         </button>

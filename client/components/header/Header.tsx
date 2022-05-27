@@ -50,7 +50,8 @@ const Header: React.FC<HeaderProps> = ({ tests, panel }) => {
                                 ?
                                 <>
                                     {
-                                        Object.keys(userData).length
+                                        // Object.keys(userData).length
+                                        (userData.role !== '') && (Object.keys(userData).length)
                                             ?
                                             <>
                                                 <div className={st.name}>Здравствуйте, {userData.surname} {userData.name}</div>
@@ -70,13 +71,12 @@ const Header: React.FC<HeaderProps> = ({ tests, panel }) => {
                     </div>
                 </div>
                 <div className={st.menu + ' ' + (openMenu ? st.open : '')}>
+                    <div className={st.menutitle}>Тесты:</div>
                     <ul className={st.menuList}>
                         {
                             tests.map((test, index) => {
                                 return (
                                     <li className={st.menuItem} key={index} onClick={() => setOpenMenu(false)}>
-                                        {/* <Link href={'http://localhost:3000/test/[id]'} as={'http://localhost:3000/test/' + test._id}> */}
-                                        {/* <Link href='http://localhost:3000/test/[id]'> */}
                                         <Link href={'/test/' + test._id}>
                                             <a>{test.title}</a>
                                         </Link>

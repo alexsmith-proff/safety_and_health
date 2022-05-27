@@ -4,12 +4,18 @@ export async function findResults() {
     return await resultModel.find()
 }
 
+
+export async function findResultById(id) {
+    return await resultModel.findById(id)
+}
+
 export async function findResultByIdUser(idUser) {
     return await resultModel.find({idUser})
 }
 
-export async function findResultById(id) {
-    return await resultModel.findById(id)
+export async function findResultByIdTest(idTest) {
+    console.log('idTest', idTest);
+    return await resultModel.find({test: idTest}).populate('idUser')
 }
 
 export async function resultSaveDB(data) {

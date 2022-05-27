@@ -30,7 +30,6 @@ const AllQuestions: React.FC<AllQuestionsProps> = ({ questions }) => {
 
     return (
         <div className={s.main}>
-
             {
                 questions.length > 0 ?
                     <>
@@ -42,7 +41,7 @@ const AllQuestions: React.FC<AllQuestionsProps> = ({ questions }) => {
                                             <th className={s.th}>{index + 1}</th>
                                             <td className={s.td}>
                                                 <div className={s.wrap}>
-                                                    <div>
+                                                    <div className={s.text}>
                                                         {item.questionText}
                                                     </div>
                                                     <div>
@@ -58,19 +57,6 @@ const AllQuestions: React.FC<AllQuestionsProps> = ({ questions }) => {
                                         </tr>
                                     ))
                                 }
-
-                                {/* <tr>
-                        <th className={s.th}>1</th>
-                        <td className={s.td}>Что соответствует понятию «Охрана труда» </td>
-                    </tr>
-                    <tr>
-                        <th className={s.th}>2</th>
-                        <td className={s.td}>Что соответствует понятию «Охрана труда» </td>
-                    </tr>
-                    <tr>
-                        <th className={s.th}>3</th>
-                        <td className={s.td}>Что соответствует понятию «Охрана труда» </td>
-                    </tr> */}
                             </tbody>
                         </table>
                     </>

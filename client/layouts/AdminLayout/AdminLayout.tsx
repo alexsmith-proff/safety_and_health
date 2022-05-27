@@ -24,25 +24,19 @@ const AdminLayout = ({ tests, children }: MainLayoutProps) => {
     const [isVisiblePage, setIsVisiblePage] = useState<boolean>(false)
 
     useEffect(() => {
-        console.log('eff[1]');
         dispatch(getUserData())
-        console.log('eff[2]');
     }, [])
 
     useEffect(() => {
-        console.log('eff[user1]');
             if (!Object.keys(user).length) {
                 console.log('!Object.keys(user).length');
             } else {
                 if (user.role !== 'admin') {
-                    console.log('user.role');
                     router.push('/login')
                 } else {
-                    console.log('setIsVisiblePage(true)');
                     setIsVisiblePage(true)
                 }
             }
-        console.log('eff[user2]');
     }, [user])
     
 

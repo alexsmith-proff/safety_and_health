@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const ResultSchema = new mongoose.Schema({
-    // idUser: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref : 'User'
-    // },
+    idUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+    },
 
     test: {
         type: mongoose.Schema.Types.ObjectId,

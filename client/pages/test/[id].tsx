@@ -18,13 +18,13 @@ interface TestProps {
 const Test: React.FC<TestProps> = ({ tests, questions }) => {
   const user = useAppSelector(state => state.user.user)
   const router = useRouter()
+  const [isVisiblePage, setIsVisiblePage] = useState<boolean>(false)
   const [workState, setWorkState] = useState<boolean>(true)
   const [questionIndex, setQuestionIndex] = useState<number>(0)
   const [radioBtnClicked, setRadioBtnClicked] = useState<boolean>(false)
   const [radioBtnIndex, setRadioBtnIndex] = useState<number>(0)
   const [notSelectAnswer, setNotSelectAnswer] = useState<boolean>(false)
   const [result, setResult] = useState<IResultTest>({
-    idUser: '1325456572',
     test: String(router.query.id),
     countAllQuestions: questions.length,
     countNoCorrectAnswer: 0,
@@ -32,10 +32,12 @@ const Test: React.FC<TestProps> = ({ tests, questions }) => {
   })
 
   useEffect(() => {
-    if(!Object.keys(user).length) {
+    if ((!Object.keys(user).length) || (user.role === '')) {
       router.push('/login')
+    } else {
+      setIsVisiblePage(true)
     }
-  }, [])
+  }, [user])
 
   const handleRadioBtnClick = (index: number) => {
     setRadioBtnClicked(true)
@@ -87,7 +89,7 @@ const Test: React.FC<TestProps> = ({ tests, questions }) => {
   useEffect(() => {
     if (questionIndex >= questions.length) {
       axios.post('http://localhost:5000/api/results/create', {
-        // idUser: result.idUser,
+        idUser: user._id,
         test: result.test,
         countAllQuestions: result.countAllQuestions,
         countNoCorrectAnswer: result.countNoCorrectAnswer,
@@ -101,24 +103,30 @@ const Test: React.FC<TestProps> = ({ tests, questions }) => {
   return (
     <MainLayout tests={tests}>
       {
-        
-        questionIndex < questions.length &&
+        isVisiblePage &&
         <div className={st.questions}>
           <div className="container">
             <TimerBlock workState={workState} setWorkState={setWorkState} timeOut={timeOut} />
             <div className={st.questionContainer}>
               <h2 className={st.title}>{'ВОПРОС №' + (questionIndex + 1)}</h2>
-              <h3 className={st.text}>{questions[questionIndex].questionText}</h3>
-              <ul className={st.answersList}>
-                {
-                  questions[questionIndex].answers.map((item, index) => (
-                    <li className={st.answersItem} key={item._id} onClick={() => handleRadioBtnClick(index)}>
-                      <input type="radio" id={item._id} name="group" value={index} onClick={() => handleRadioBtnClick(index)} />
-                      <label className={st.answersText} htmlFor={item._id}>{item.answerText}</label>
-                    </li>
-                  ))
-                }
-              </ul>
+              {
+                (questionIndex + 1) <= questions.length &&
+                <>
+                  <h3 className={st.text}>{questions[questionIndex].questionText}</h3>
+                  <ul className={st.answersList}>
+                    {
+                      questions[questionIndex].answers.map((item, index) => (
+                        <li className={st.answersItem} key={item._id} onClick={() => handleRadioBtnClick(index)}>
+                          <input type="radio" id={item._id} name="group" value={index} onClick={() => handleRadioBtnClick(index)} />
+                          <label className={st.answersText} htmlFor={item._id}>{item.answerText}</label>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </>
+              }
+
+
             </div>
             <button className={st.btn} onClick={handleBtnClick}>
               {

@@ -123,8 +123,15 @@
     background-color: rgba(0, 0, 0, .8);
     transition: all .5s;
 
+    &title{
+        font-size: 24px;
+        padding-top: 150px;
+        text-align: center;
+        text-decoration: underline;
+    }
+
     &List{
-        padding-top: 200px;
+        padding-top: 70px;
     }
     &Item{
         text-align: center;

@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { findResults, findResultByIdUser, resultSaveDB, findResultById } from "../service/result.service.js"
+import { findResults, findResultByIdUser, resultSaveDB, findResultById, findResultByIdTest } from "../service/result.service.js"
 
 export const resultRouter = Router()
 
@@ -29,6 +29,16 @@ resultRouter.get('/', async(req, res) => {
         })        
     }
 })
+resultRouter.get('/:id', async(req, res) => {
+    try {
+        const result = await findResultById(req.params.id)
+        res.status(200).json(result)        
+    } catch (error) {
+        res.status(500).json({
+            message: 'Ошибка получения результата'
+        })        
+    }
+})
 resultRouter.get('/user/:id', async(req, res) => {
     try {
         const result = await findResultByIdUser(req.params.id)
@@ -39,9 +49,9 @@ resultRouter.get('/user/:id', async(req, res) => {
         })        
     }
 })
-resultRouter.get('/:id', async(req, res) => {
+resultRouter.get('/test/:id', async(req, res) => {
     try {
-        const result = await findResultById(req.params.id)
+        const result = await findResultByIdTest(req.params.id)
         res.status(200).json(result)        
     } catch (error) {
         res.status(500).json({

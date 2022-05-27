@@ -16,12 +16,11 @@ export const getUserData = createAsyncThunk('user/getUserData', async(_, { rejec
     // Запрос
     try {
         const response = await allEndPoints.auth.getProfile({})
-    console.log(response);
+    // console.log(response);
     dispatch(setUserData(response.data.user))        
     } catch (error) {
         if (error.response.status === 403) {
-            console.log(error);
-            
+            // console.log(error);
             dispatch(setUserData({role: ''}))
         }
     }
